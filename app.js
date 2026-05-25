@@ -143,10 +143,11 @@ document.addEventListener('DOMContentLoaded', () => {
     classTriggers.forEach(trigger => {
         trigger.addEventListener('click', (e) => {
             const className = trigger.getAttribute('data-class');
-            selectInquiry.value = 'class-signup';
             if (className.includes('Forró')) {
+                selectInquiry.value = 'forro-workshop';
                 messageInput.value = `Hi Priscila! I am very interested in joining your 1-month Forró beginners workshop on Mondays. Please put my name on the waiting list and notify me as soon as the venue in Minneapolis is confirmed!`;
             } else {
+                selectInquiry.value = 'class-signup';
                 messageInput.value = `Hi Priscila! I would love to sign up for your Samba Dance Lessons on Wednesdays at the Center for Performing Arts. Please let me know the registration and payment details!`;
             }
         });
@@ -161,6 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
+        
         const submitBtn = document.getElementById('submitBtn');
         const btnText = submitBtn.querySelector('span');
         const originalText = btnText.textContent;
@@ -168,13 +170,34 @@ document.addEventListener('DOMContentLoaded', () => {
         btnText.textContent = 'Sending Samba Request...';
         submitBtn.style.pointerEvents = 'none';
 
-        // Simulate AJAX request
-        setTimeout(() => {
-            formSuccess.classList.add('active');
-            contactForm.reset();
+        // Pack form data into FormData object
+        const formData = new FormData(contactForm);
+
+        // Submit to Formspree via AJAX
+        fetch('https://formspree.io/f/mykvngkq', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                // Show success animation overlay
+                formSuccess.classList.add('active');
+                contactForm.reset();
+            } else {
+                alert('Oops! There was a problem submitting your form. Please try again.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('There was a connection error. Please try again.');
+        })
+        .finally(() => {
             btnText.textContent = originalText;
             submitBtn.style.pointerEvents = 'auto';
-        }, 1500);
+        });
     });
 
     resetFormBtn.addEventListener('click', () => {
@@ -247,87 +270,4 @@ document.addEventListener('DOMContentLoaded', () => {
             caption: item.getAttribute('data-caption')
         });
 
-        item.addEventListener('click', () => {
-            currentGalleryIndex = index;
-            openLightbox(currentGalleryIndex);
-        });
-    });
-
-    function openLightbox(index) {
-        const item = galleryImages[index];
-        lightboxImg.src = item.src;
-        lightboxCaption.textContent = item.caption;
-        lightbox.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeLightbox() {
-        lightbox.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-
-    function showNextImage() {
-        currentGalleryIndex = (currentGalleryIndex + 1) % galleryImages.length;
-        updateLightboxContent(currentGalleryIndex);
-    }
-
-    function showPrevImage() {
-        currentGalleryIndex = (currentGalleryIndex - 1 + galleryImages.length) % galleryImages.length;
-        updateLightboxContent(currentGalleryIndex);
-    }
-
-    function updateLightboxContent(index) {
-        // Add subtle scale out animation trigger
-        lightboxImg.style.transform = 'scale(0.97)';
-        lightboxImg.style.opacity = '0.7';
         
-        setTimeout(() => {
-            const item = galleryImages[index];
-            lightboxImg.src = item.src;
-            lightboxCaption.textContent = item.caption;
-            lightboxImg.style.transform = 'scale(1)';
-            lightboxImg.style.opacity = '1';
-        }, 150);
-    }
-
-    if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
-    if (lightboxNext) lightboxNext.addEventListener('click', showNextImage);
-    if (lightboxPrev) lightboxPrev.addEventListener('click', showPrevImage);
-
-    // Keyboard support for Lightbox
-    document.addEventListener('keydown', (e) => {
-        if (!lightbox.classList.contains('active')) return;
-        
-        if (e.key === 'Escape') closeLightbox();
-        if (e.key === 'ArrowRight') showNextImage();
-        if (e.key === 'ArrowLeft') showPrevImage();
-    });
-
-    // Close on clicking lightbox backdrop background
-    lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox || e.target.classList.contains('lightbox-content')) {
-            closeLightbox();
-        }
-    });
-
-    /* --------------------------------------------------------------------------
-       8. SCROLL REVEAL ENTRANCE ANIMATIONS
-       -------------------------------------------------------------------------- */
-    const revealElements = document.querySelectorAll('.animate-on-scroll');
-
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('appear');
-                observer.unobserve(entry.target); // Reveal once
-            }
-        });
-    }, {
-        threshold: 0.15,
-        rootMargin: '0px 0px -50px 0px'
-    });
-
-    revealElements.forEach(elem => {
-        revealObserver.observe(elem);
-    });
-});
