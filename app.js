@@ -270,4 +270,87 @@ document.addEventListener('DOMContentLoaded', () => {
             caption: item.getAttribute('data-caption')
         });
 
+        item.addEventListener('click', () => {
+            currentGalleryIndex = index;
+            openLightbox(currentGalleryIndex);
+        });
+    });
+
+    function openLightbox(index) {
+        const item = galleryImages[index];
+        lightboxImg.src = item.src;
+        lightboxCaption.textContent = item.caption;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function showNextImage() {
+        currentGalleryIndex = (currentGalleryIndex + 1) % galleryImages.length;
+        updateLightboxContent(currentGalleryIndex);
+    }
+
+    function showPrevImage() {
+        currentGalleryIndex = (currentGalleryIndex - 1 + galleryImages.length) % galleryImages.length;
+        updateLightboxContent(currentGalleryIndex);
+    }
+
+    function updateLightboxContent(index) {
+        // Add subtle scale out animation trigger
+        lightboxImg.style.transform = 'scale(0.97)';
+        lightboxImg.style.opacity = '0.7';
         
+        setTimeout(() => {
+            const item = galleryImages[index];
+            lightboxImg.src = item.src;
+            lightboxCaption.textContent = item.caption;
+            lightboxImg.style.transform = 'scale(1)';
+            lightboxImg.style.opacity = '1';
+        }, 150);
+    }
+
+    if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+    if (lightboxNext) lightboxNext.addEventListener('click', showNextImage);
+    if (lightboxPrev) lightboxPrev.addEventListener('click', showPrevImage);
+
+    // Keyboard support for Lightbox
+    document.addEventListener('keydown', (e) => {
+        if (!lightbox.classList.contains('active')) return;
+        
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') showNextImage();
+        if (e.key === 'ArrowLeft') showPrevImage();
+    });
+
+    // Close on clicking lightbox backdrop background
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox || e.target.classList.contains('lightbox-content')) {
+            closeLightbox();
+        }
+    });
+
+    /* --------------------------------------------------------------------------
+       8. SCROLL REVEAL ENTRANCE ANIMATIONS
+       -------------------------------------------------------------------------- */
+    const revealElements = document.querySelectorAll('.animate-on-scroll');
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('appear');
+                observer.unobserve(entry.target); // Reveal once
+            }
+        });
+    }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    revealElements.forEach(elem => {
+        revealObserver.observe(elem);
+    });
+});
