@@ -806,6 +806,37 @@ button, input, select, textarea {
     gap: 16px;
 }
 
+/* Funding Attribution Credit */
+.funding-attribution {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 18px 22px;
+    margin-top: 32px;
+    border-radius: 16px;
+}
+.funding-logo {
+    width: 80px;
+    height: auto;
+    flex-shrink: 0;
+    object-fit: contain;
+    filter: brightness(0) invert(1); /* Invert logo to pure white to match the premium dark theme */
+    opacity: 0.85;
+}
+.funding-text {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+    margin: 0;
+}
+@media (max-width: 480px) {
+    .funding-attribution {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+}
+
 /* Ticket Mockup Graphic */
 .ticket-mockup {
     border-radius: 24px;
