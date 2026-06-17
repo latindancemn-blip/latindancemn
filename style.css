@@ -1895,3 +1895,85 @@ select.form-input option {
         text-align: left;
     }
 }
+
+/* ==========================================================================
+   9. AURORA DO SAMBA SOCIAL SHARING PANEL
+   ========================================================================== */
+.aurora-share {
+    margin-top: 32px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-radius: 16px;
+    width: 100%;
+}
+.share-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.share-title i {
+    width: 18px;
+    height: 18px;
+}
+.share-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.share-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-smooth);
+    cursor: pointer;
+    text-decoration: none;
+}
+.share-btn i, .share-btn svg {
+    width: 18px;
+    height: 18px;
+    transition: var(--transition-smooth);
+}
+.share-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    color: var(--text-light);
+    box-shadow: 0 8px 20px rgba(255, 62, 108, 0.25);
+}
+.share-btn.facebook:hover {
+    background: #1877f2;
+    border-color: #1877f2;
+}
+.share-btn.twitter:hover {
+    background: #000000;
+    border-color: #333333;
+}
+.share-btn.whatsapp:hover {
+    background: #25d366;
+    border-color: #25d366;
+}
+.share-btn.linkedin:hover {
+    background: #0a66c2;
+    border-color: #0a66c2;
+}
+
+@media (max-width: 580px) {
+    .aurora-share {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+}
+
