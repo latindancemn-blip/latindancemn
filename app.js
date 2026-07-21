@@ -2,21 +2,18 @@
    LATIN DANCE MN - CORE INTERACTIVITY ENGINE
    Vanilla JS implementing dynamic UI transitions, modals, & lightboxes
    ========================================================================== */
-
 document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize Lucide SVG Icons
     if (typeof lucide !== 'undefined') {
         lucide.createIcons();
     }
-
     /* --------------------------------------------------------------------------
        1. STICKY HEADER & ACTIVE SCROLL STATE
        -------------------------------------------------------------------------- */
     const header = document.querySelector('.main-header');
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-link');
-
     // Sticky Navbar shadow on scroll
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
@@ -26,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         highlightActiveSection();
     });
-
     // Highlight current section in navbar
     function highlightActiveSection() {
         const scrollY = window.pageYOffset;
@@ -46,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
     /* --------------------------------------------------------------------------
        2. MOBILE HAMBURGER MENU
        -------------------------------------------------------------------------- */
@@ -54,7 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const navMenu = document.getElementById('navMenu');
     const iconOpen = mobileToggle.querySelector('.icon-open');
     const iconClose = mobileToggle.querySelector('.icon-close');
-
     mobileToggle.addEventListener('click', () => {
         navMenu.classList.toggle('active');
         const isActive = navMenu.classList.contains('active');
@@ -69,7 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.overflow = '';
         }
     });
-
     // Close menu when tapping links
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
@@ -79,7 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.overflow = '';
         });
     });
-
     /* --------------------------------------------------------------------------
        3. TICKET SPOTLIGHT MODAL OVERLAY
        -------------------------------------------------------------------------- */
@@ -89,12 +81,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const reserveForm = document.getElementById('reserveForm');
     const modalSuccess = document.getElementById('modalSuccess');
     const closeModalSuccessBtn = document.getElementById('closeModalSuccessBtn');
-
     function openModal() {
         reserveModal.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
-
     function closeModal() {
         reserveModal.classList.remove('active');
         document.body.style.overflow = '';
@@ -103,18 +93,15 @@ document.addEventListener('DOMContentLoaded', () => {
             reserveForm.reset();
         }, 300);
     }
-
     if (openModalBtn) openModalBtn.addEventListener('click', openModal);
     if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
     if (closeModalSuccessBtn) closeModalSuccessBtn.addEventListener('click', closeModal);
-
     // Close when tapping outside card
     reserveModal.addEventListener('click', (e) => {
         if (e.target === reserveModal) {
             closeModal();
         }
     });
-
     // Reserve ticket form submission animation
     reserveForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -124,20 +111,17 @@ document.addEventListener('DOMContentLoaded', () => {
         
         btnText.textContent = 'Securing Spotlight Seating...';
         submitBtn.style.pointerEvents = 'none';
-
         setTimeout(() => {
             modalSuccess.classList.add('active');
             btnText.textContent = originalText;
             submitBtn.style.pointerEvents = 'auto';
         }, 1500);
     });
-
     /* --------------------------------------------------------------------------
        4. HERO & CLASS TRIGGER ROUTING (AUTO-FILL FORM STATES)
        -------------------------------------------------------------------------- */
     const selectInquiry = document.getElementById('inquiryType');
     const messageInput = document.getElementById('message');
-
     // Sign Up buttons in Class Cards
     const classTriggers = document.querySelectorAll('.class-book-trigger');
     classTriggers.forEach(trigger => {
@@ -152,14 +136,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
     /* --------------------------------------------------------------------------
        5. CONTACT & BOOKING FORM CONTROLLER (AJAX-STYLE RESPONSE)
        -------------------------------------------------------------------------- */
     const contactForm = document.getElementById('contactForm');
     const formSuccess = document.getElementById('formSuccess');
     const resetFormBtn = document.getElementById('resetFormBtn');
-
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
         
@@ -169,10 +151,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         btnText.textContent = 'Sending Samba Request...';
         submitBtn.style.pointerEvents = 'none';
-
         // Pack form data into FormData object
         const formData = new FormData(contactForm);
-
         // Submit to Formspree via AJAX
         fetch('https://formspree.io/f/mykvngkq', {
             method: 'POST',
@@ -199,11 +179,9 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.style.pointerEvents = 'auto';
         });
     });
-
     resetFormBtn.addEventListener('click', () => {
         formSuccess.classList.remove('active');
     });
-
     /* --------------------------------------------------------------------------
        6. SHOW PERFORMANCE COUNTDOWN TIMER (AURORA DO SAMBA)
        -------------------------------------------------------------------------- */
@@ -211,18 +189,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (countdown) {
         const targetDateStr = countdown.getAttribute('data-date');
         const targetDate = new Date(targetDateStr).getTime();
-
         const daysSpan = document.getElementById('days');
         const hoursSpan = document.getElementById('hours');
         const minutesSpan = document.getElementById('minutes');
         const secondsSpan = document.getElementById('seconds');
-
+        let countdownInterval;
         function updateCountdown() {
             const now = new Date().getTime();
             const distance = targetDate - now;
-
             if (distance < 0) {
-                clearInterval(countdownInterval);
+                if (countdownInterval) {
+                    clearInterval(countdownInterval);
+                }
                 daysSpan.textContent = "00";
                 hoursSpan.textContent = "00";
                 minutesSpan.textContent = "00";
@@ -233,22 +211,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (countdownLabel) countdownLabel.textContent = "AURORA DO SAMBA SHOW IS LIVE!";
                 return;
             }
-
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
             daysSpan.textContent = String(days).padStart(2, '0');
             hoursSpan.textContent = String(hours).padStart(2, '0');
             minutesSpan.textContent = String(minutes).padStart(2, '0');
             secondsSpan.textContent = String(seconds).padStart(2, '0');
         }
-
         updateCountdown(); // Run once instantly
-        const countdownInterval = setInterval(updateCountdown, 1000);
+        if (targetDate - new Date().getTime() >= 0) {
+            countdownInterval = setInterval(updateCountdown, 1000);
+        }
     }
-
     /* --------------------------------------------------------------------------
        7. INTERACTIVE GALLERY IMAGE LIGHTBOX
        -------------------------------------------------------------------------- */
@@ -259,23 +235,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightboxClose = document.getElementById('lightboxClose');
     const lightboxPrev = document.getElementById('lightboxPrev');
     const lightboxNext = document.getElementById('lightboxNext');
-
     let currentGalleryIndex = 0;
     const galleryImages = [];
-
     // Map gallery images array
     galleryItems.forEach((item, index) => {
         galleryImages.push({
             src: item.getAttribute('data-src'),
             caption: item.getAttribute('data-caption')
         });
-
         item.addEventListener('click', () => {
             currentGalleryIndex = index;
             openLightbox(currentGalleryIndex);
         });
     });
-
     function openLightbox(index) {
         const item = galleryImages[index];
         lightboxImg.src = item.src;
@@ -283,22 +255,18 @@ document.addEventListener('DOMContentLoaded', () => {
         lightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
-
     function closeLightbox() {
         lightbox.classList.remove('active');
         document.body.style.overflow = '';
     }
-
     function showNextImage() {
         currentGalleryIndex = (currentGalleryIndex + 1) % galleryImages.length;
         updateLightboxContent(currentGalleryIndex);
     }
-
     function showPrevImage() {
         currentGalleryIndex = (currentGalleryIndex - 1 + galleryImages.length) % galleryImages.length;
         updateLightboxContent(currentGalleryIndex);
     }
-
     function updateLightboxContent(index) {
         // Add subtle scale out animation trigger
         lightboxImg.style.transform = 'scale(0.97)';
@@ -312,11 +280,9 @@ document.addEventListener('DOMContentLoaded', () => {
             lightboxImg.style.opacity = '1';
         }, 150);
     }
-
     if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
     if (lightboxNext) lightboxNext.addEventListener('click', showNextImage);
     if (lightboxPrev) lightboxPrev.addEventListener('click', showPrevImage);
-
     // Keyboard support for Lightbox
     document.addEventListener('keydown', (e) => {
         if (!lightbox.classList.contains('active')) return;
@@ -325,19 +291,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'ArrowRight') showNextImage();
         if (e.key === 'ArrowLeft') showPrevImage();
     });
-
     // Close on clicking lightbox backdrop background
     lightbox.addEventListener('click', (e) => {
         if (e.target === lightbox || e.target.classList.contains('lightbox-content')) {
             closeLightbox();
         }
     });
-
     /* --------------------------------------------------------------------------
        8. SCROLL REVEAL ENTRANCE ANIMATIONS
        -------------------------------------------------------------------------- */
     const revealElements = document.querySelectorAll('.animate-on-scroll');
-
     if (typeof IntersectionObserver === 'undefined') {
         // Fallback: immediately show all animated elements if IntersectionObserver is not supported
         revealElements.forEach(elem => {
@@ -355,7 +318,6 @@ document.addEventListener('DOMContentLoaded', () => {
             threshold: 0.05, // Lower threshold for more reliable triggering on mobile screens
             rootMargin: '0px 0px -50px 0px'
         });
-
         revealElements.forEach(elem => {
             revealObserver.observe(elem);
         });
