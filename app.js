@@ -338,19 +338,26 @@ document.addEventListener('DOMContentLoaded', () => {
        -------------------------------------------------------------------------- */
     const revealElements = document.querySelectorAll('.animate-on-scroll');
 
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('appear');
-                observer.unobserve(entry.target); // Reveal once
-            }
+    if (typeof IntersectionObserver === 'undefined') {
+        // Fallback: immediately show all animated elements if IntersectionObserver is not supported
+        revealElements.forEach(elem => {
+            elem.classList.add('appear');
         });
-    }, {
-        threshold: 0.15,
-        rootMargin: '0px 0px -50px 0px'
-    });
+    } else {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('appear');
+                    observer.unobserve(entry.target); // Reveal once
+                }
+            });
+        }, {
+            threshold: 0.05, // Lower threshold for more reliable triggering on mobile screens
+            rootMargin: '0px 0px -50px 0px'
+        });
 
-    revealElements.forEach(elem => {
-        revealObserver.observe(elem);
-    });
+        revealElements.forEach(elem => {
+            revealObserver.observe(elem);
+        });
+    }
 });
