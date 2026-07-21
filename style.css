@@ -998,6 +998,7 @@ button, input, select, textarea {
     align-items: center;
     gap: 4px;
 }
+
 /* --------------------------------------------------------------------------
    8. DYNAMIC GALLERY & LIGHTBOX
    -------------------------------------------------------------------------- */
@@ -1649,9 +1650,6 @@ select.form-input option {
     padding: 24px;
     opacity: 0;
     pointer-events: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     transition: opacity 0.4s ease;
 }
 .modal-overlay.active {
@@ -1978,3 +1976,4 @@ select.form-input option {
         gap: 16px;
     }
 }
+
