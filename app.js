@@ -80,57 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    /* --------------------------------------------------------------------------
-       3. TICKET SPOTLIGHT MODAL OVERLAY
-       -------------------------------------------------------------------------- */
-    const reserveModal = document.getElementById('reserveModal');
-    const openModalBtn = document.getElementById('openReserveModal');
-    const closeModalBtn = document.getElementById('closeReserveModal');
-    const reserveForm = document.getElementById('reserveForm');
-    const modalSuccess = document.getElementById('modalSuccess');
-    const closeModalSuccessBtn = document.getElementById('closeModalSuccessBtn');
 
-    function openModal() {
-        reserveModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-        reserveModal.classList.remove('active');
-        document.body.style.overflow = '';
-        setTimeout(() => {
-            modalSuccess.classList.remove('active');
-            reserveForm.reset();
-        }, 300);
-    }
-
-    if (openModalBtn) openModalBtn.addEventListener('click', openModal);
-    if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
-    if (closeModalSuccessBtn) closeModalSuccessBtn.addEventListener('click', closeModal);
-
-    // Close when tapping outside card
-    reserveModal.addEventListener('click', (e) => {
-        if (e.target === reserveModal) {
-            closeModal();
-        }
-    });
-
-    // Reserve ticket form submission animation
-    reserveForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const submitBtn = reserveForm.querySelector('.modal-submit');
-        const btnText = submitBtn.querySelector('span');
-        const originalText = btnText.textContent;
-        
-        btnText.textContent = 'Securing Spotlight Seating...';
-        submitBtn.style.pointerEvents = 'none';
-
-        setTimeout(() => {
-            modalSuccess.classList.add('active');
-            btnText.textContent = originalText;
-            submitBtn.style.pointerEvents = 'auto';
-        }, 1500);
-    });
 
     /* --------------------------------------------------------------------------
        4. HERO & CLASS TRIGGER ROUTING (AUTO-FILL FORM STATES)
@@ -207,55 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
         formSuccess.classList.remove('active');
     });
 
-    /* --------------------------------------------------------------------------
-       6. SHOW PERFORMANCE COUNTDOWN TIMER (AURORA DO SAMBA)
-       -------------------------------------------------------------------------- */
-    const countdown = document.getElementById('countdown');
-    if (countdown) {
-        const targetDateStr = countdown.getAttribute('data-date');
-        const targetDate = new Date(targetDateStr).getTime();
 
-        const daysSpan = document.getElementById('days');
-        const hoursSpan = document.getElementById('hours');
-        const minutesSpan = document.getElementById('minutes');
-        const secondsSpan = document.getElementById('seconds');
-
-        let countdownInterval;
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
-
-            if (distance < 0) {
-                if (countdownInterval) {
-                    clearInterval(countdownInterval);
-                }
-                daysSpan.textContent = "00";
-                hoursSpan.textContent = "00";
-                minutesSpan.textContent = "00";
-                secondsSpan.textContent = "00";
-                
-                // Show is live or has passed
-                const countdownLabel = document.querySelector('.aurora-tagline');
-                if (countdownLabel) countdownLabel.textContent = "AURORA DO SAMBA SHOW IS LIVE!";
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            daysSpan.textContent = String(days).padStart(2, '0');
-            hoursSpan.textContent = String(hours).padStart(2, '0');
-            minutesSpan.textContent = String(minutes).padStart(2, '0');
-            secondsSpan.textContent = String(seconds).padStart(2, '0');
-        }
-
-        updateCountdown(); // Run once instantly
-        if (targetDate - new Date().getTime() >= 0) {
-            countdownInterval = setInterval(updateCountdown, 1000);
-        }
-    }
 
     /* --------------------------------------------------------------------------
        7. INTERACTIVE GALLERY IMAGE LIGHTBOX
