@@ -168,14 +168,15 @@
     <section class="aurora" id="aurora">
         <div class="aurora-backdrop"></div>
         <div class="section-container">
+            <div class="show-badge">
+                <i data-lucide="sparkles" class="text-gradient"></i>
+                <span>PAST SHOW SPOTLIGHT</span>
+            </div>
+            <h2 class="aurora-title">AURORA DO SAMBA</h2>
+            <p class="aurora-tagline text-gradient-alt">The Dawn of Brazilian Rhythm in Minnesota</p>
+
             <div class="aurora-grid">
                 <div class="aurora-content">
-                    <div class="show-badge">
-                        <i data-lucide="sparkles" class="text-gradient"></i>
-                        <span>PAST SHOW SPOTLIGHT</span>
-                    </div>
-                    <h2 class="aurora-title">AURORA DO SAMBA</h2>
-                    <p class="aurora-tagline text-gradient-alt">The Dawn of Brazilian Rhythm in Minnesota</p>
                     <p class="aurora-description">
                         <strong>Aurora do Samba</strong> was a unique and magical multicultural show presented by Latin Dance MN. Audiences experienced a majestic journey through Brazilian history, folklore, and carnival celebration, featuring mesmerizing choreographies, live traditional percussion, capoeira performances, and elaborate, authentic feathered costumes flown straight from Rio.
                     </p>
@@ -199,78 +200,6 @@
                                 <span>THE CEDAR CULTURAL CENTER, Minneapolis</span>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Show Countdown -->
-                    <div class="countdown-container glass" id="countdown" data-date="2026-07-19T15:00:00-05:00">
-                        <div class="countdown-item">
-                            <span class="countdown-num" id="days">00</span>
-                            <span class="countdown-label">Days</span>
-                        </div>
-                        <div class="countdown-item">
-                            <span class="countdown-num" id="hours">00</span>
-                            <span class="countdown-label">Hours</span>
-                        </div>
-                        <div class="countdown-item">
-                            <span class="countdown-num" id="minutes">00</span>
-                            <span class="countdown-label">Mins</span>
-                        </div>
-                        <div class="countdown-item">
-                            <span class="countdown-num" id="seconds">00</span>
-                            <span class="countdown-label">Secs</span>
-                        </div>
-                    </div>
-
-                    <!-- Detailed Show Schedule -->
-                    <div class="show-schedule-card glass animate-on-scroll">
-                        <h4 class="schedule-title">
-                            <i data-lucide="clock"></i> Show Schedule & Program
-                        </h4>
-                        <div class="schedule-timeline">
-                            <div class="schedule-item">
-                                <span class="schedule-time">3:00 - 3:45 PM</span>
-                                <div class="schedule-desc">
-                                    <strong>Live Guitar in the Lounge</strong>
-                                    <span>Atmospheric pre-show acoustic music.</span>
-                                </div>
-                            </div>
-                            <div class="schedule-item">
-                                <span class="schedule-time">4:00 - 6:00 PM</span>
-                                <div class="schedule-desc">
-                                    <strong>Multicultural Stage Show</strong>
-                                    <span>The core spectacular choreography and percussion showcase, including capoeira performances.</span>
-                                </div>
-                            </div>
-                            <div class="schedule-item">
-                                <span class="schedule-time">7:00 PM onwards</span>
-                                <div class="schedule-desc">
-                                    <strong>Dinner at Bullvinos Brazilian Restaurant</strong>
-                                    <span>Conclude the celebration with authentic food.</span>
-                                    <div>
-                                        <span class="discount-badge">
-                                            <i data-lucide="tag"></i> 50% discount on food when presenting ticket of the show
-                                        </span>
-                                    </div>
-                                    <div class="discount-disclaimer">
-                                        <i data-lucide="info"></i> Important: dinner price not included in the show ticket
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="aurora-actions">
-                        <a href="https://www.eventbrite.com/e/latin-dance-mn-presents-aurora-do-samba-tickets-1985815401322" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-aurora">
-                            <span>Get Eventbrite Tickets</span>
-                            <i data-lucide="external-link"></i>
-                        </a>
-                        <button class="btn btn-secondary" id="openReserveModal">
-                            <span>Reserve Ticket Spotlight</span>
-                        </button>
-                        <a href="https://canva.link/themakingofauroradosambashow" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-making-of">
-                            <i data-lucide="presentation"></i>
-                            <span>The Making of the Show</span>
-                        </a>
                     </div>
 
                     <!-- Post on Social Media share actions -->
@@ -305,32 +234,63 @@
                 </div>
 
                 <div class="aurora-visual animate-on-scroll">
-                    <div class="ticket-mockup glass">
-                        <div class="ticket-visual" style="background-image: url('assets/show.png');">
-                            <div class="ticket-v-overlay"></div>
-                            <span class="ticket-category">GENERAL ADMISSION</span>
-                        </div>
-                        <div class="ticket-info">
-                            <h3 class="ticket-title">AURORA DO SAMBA</h3>
-                            <p class="ticket-detail-row">
-                                <span><i data-lucide="calendar"></i> 07.19.26</span>
-                                <span><i data-lucide="clock"></i> 3:00 PM</span>
-                            </p>
-                            <div class="ticket-divider"></div>
-                            <div class="ticket-barcode-row">
-                                <div class="barcode"></div>
-                                <span class="ticket-price">$35 - $60</span>
+                    <!-- Detailed Show Schedule -->
+                    <div class="show-schedule-card glass" style="margin-bottom: 24px;">
+                        <h4 class="schedule-title">
+                            <i data-lucide="clock"></i> Show Schedule & Program
+                        </h4>
+                        <div class="schedule-timeline">
+                            <div class="schedule-item">
+                                <span class="schedule-time">3:00 - 3:45 PM</span>
+                                <div class="schedule-desc">
+                                    <strong>Live Guitar in the Lounge</strong>
+                                    <span>Atmospheric pre-show acoustic music.</span>
+                                    <span>(Past Show Program)</span>
+                                </div>
+                            </div>
+                            <div class="schedule-item">
+                                <span class="schedule-time">4:00 - 6:00 PM</span>
+                                <div class="schedule-desc">
+                                    <strong>Multicultural Stage Show</strong>
+                                    <span>The core spectacular choreography and percussion showcase, including capoeira performances.</span>
+                                </div>
+                            </div>
+                            <div class="schedule-item">
+                                <span class="schedule-time">7:00 PM onwards</span>
+                                <div class="schedule-desc">
+                                    <strong>Dinner at Bullvinos Brazilian Restaurant</strong>
+                                    <span>Conclude the celebration with authentic food.</span>
+                                    <div>
+                                        <span class="discount-badge">
+                                            <i data-lucide="tag"></i> 50% discount on food when presenting ticket of the show
+                                        </span>
+                                    </div>
+                                    <div class="discount-disclaimer">
+                                        <i data-lucide="info"></i> Important: dinner price not included in the show ticket
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="aurora-actions">
+                        <a href="https://canva.link/themakingofauroradosambashow" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-aurora btn-making-of" style="width: 100%; justify-content: center;">
+                            <i data-lucide="presentation"></i>
+                            <span>The Making of the Show</span>
+                        </a>
+                    </div>
                 </div>
             </div>
-            
+
             <!-- Full Width Group Photo Showcase -->
             <div class="aurora-artist-showcase animate-on-scroll" style="margin-top: 50px;">
                 <div class="artist-photo-container glass">
-                    <img src="assets/group_aurora.jpg" alt="Aurora do Samba Cast and Crew Group Photo" class="artist-photo">
+                    <img src="assets/group_aurora.jpg" alt="Artists from the Aurora do Samba 2026 Show" class="artist-photo">
                     <div class="artist-photo-overlay"></div>
+                </div>
+                <div style="margin-top: 16px; text-align: center; font-family: var(--font-headers); font-weight: 700; font-size: 1.1rem; color: var(--accent-gold); display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <i data-lucide="sparkles" style="width: 18px; height: 18px;"></i>
+                    <span>Artists from the Aurora do Samba 2026 Show</span>
                 </div>
             </div>
         </div>
@@ -412,8 +372,6 @@
             </div>
         </div>
     </section>
-
-
 
     <!-- Gallery Section -->
     <section class="gallery" id="gallery">
@@ -613,7 +571,7 @@
                                 <option value="" disabled selected>Select an option</option>
                                 <option value="class-signup">Sign up for Samba Classes</option>
                                 <option value="forro-workshop">Forró Workshop</option>
-                                <option value="show-tickets">Aurora do Samba Tickets Info</option>
+                                <option value="funk-workshop">Brazilian Funk 2-months Workshop</option>
                                 <option value="performance-booking">Book a Performance Show</option>
                                 <option value="private-coaching">Book Private Lessons</option>
                                 <option value="general">General Question</option>
@@ -697,59 +655,6 @@
         <div class="lightbox-content">
             <img src="" alt="" class="lightbox-img" id="lightboxImg">
             <div class="lightbox-caption" id="lightboxCaption">Caption Text</div>
-        </div>
-    </div>
-
-    <!-- Spotlight Show Booking Modal -->
-    <div class="modal-overlay" id="reserveModal">
-        <div class="modal-content glass">
-            <button class="modal-close" id="closeReserveModal" aria-label="Close Spotlight Booking"><i data-lucide="x"></i></button>
-            <div class="modal-header">
-                <i data-lucide="flame" class="modal-header-icon text-gradient"></i>
-                <h3 class="modal-title">Aurora do Samba Spotlight</h3>
-                <p class="modal-subtitle">Reserve Spotlight Premium Seats or Group Inquiries</p>
-            </div>
-            <div class="modal-body">
-                <p class="modal-text">Want to book priority VIP seating, or submit a group ticket request for **Aurora do Samba** at THE CEDAR CULTURAL CENTER on Sunday, July 19th? Fill out this quick inquiry and our box office will reach out to you with available VIP upgrades.</p>
-                <form id="reserveForm" class="modal-form">
-                    <div class="form-group">
-                        <label for="mName" class="form-label">Name</label>
-                        <input type="text" id="mName" class="form-input" placeholder="Your name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="mEmail" class="form-label">Email</label>
-                        <input type="email" id="mEmail" class="form-input" placeholder="you@example.com" required>
-                    </div>
-                    <div class="form-group-row">
-                        <div class="form-group">
-                            <label for="mGuests" class="form-label">Estimated Guests</label>
-                            <input type="number" id="mGuests" class="form-input" min="1" max="50" value="2" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="mSeatType" class="form-label">Seat Class Preference</label>
-                            <select id="mSeatType" class="form-input" required>
-                                <option value="vip-table">VIP Stage-Front Table</option>
-                                <option value="priority-row">Priority Front Row</option>
-                                <option value="group-discount">Group Booking (10+ tickets)</option>
-                            </select>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-full modal-submit">
-                        <span>Send Reservation Spotlight Request</span>
-                        <i data-lucide="ticket"></i>
-                    </button>
-                </form>
-            </div>
-            
-            <!-- Modal success overlay -->
-            <div class="modal-success-overlay" id="modalSuccess">
-                <div class="success-content text-center">
-                    <div class="success-icon"><i data-lucide="check-circle-2"></i></div>
-                    <h3 class="success-title">Spotlight Request Received</h3>
-                    <p class="success-desc">Axé! We've received your VIP show seating request and placed a temporary hold. A ticketing coordinator will contact you with booking confirmation.</p>
-                    <button class="btn btn-outline" id="closeModalSuccessBtn">Close</button>
-                </div>
-            </div>
         </div>
     </div>
 
