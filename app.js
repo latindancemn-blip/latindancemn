@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const className = trigger.getAttribute('data-class');
             if (className.includes('Forró')) {
                 selectInquiry.value = 'forro-workshop';
-                messageInput.value = `Hi Priscila! I am very interested in joining your 1-month Forró beginners workshop on Mondays. Please put my name on the waiting list and notify me as soon as the venue in Minneapolis is confirmed!`;
+                messageInput.value = `Hi Priscila! I would love to sign up for your 4-week Forró Dance Workshop on Thursdays in September (7:00 PM - 8:00 PM) at the Sabathani Community Center. Please let me know how to make the payment of $60 to secure my spot!`;
             } else if (className.includes('Beginners')) {
                 selectInquiry.value = 'class-signup';
                 messageInput.value = `Hi Priscila! I would love to sign up for your Samba Dance Foundations for Beginners on Wednesdays at 7:30 PM - 8:30 PM at the Center for Performing Arts. Please let me know the registration and payment details!`;

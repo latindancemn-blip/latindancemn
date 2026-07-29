@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Reel Flyer Previewer | Latin Dance MN</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&family=Poppins:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Styling -->
+    <link rel="stylesheet" href="flyer.css">
+</head>
+<body>
+    
+    <!-- Ambient glowing backgrounds for preview dashboard -->
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <!-- Control panel sidebar -->
+    <aside class="control-panel" id="controlPanel">
+        <div class="panel-header">
+            <a href="index.html" class="back-btn">
+                <i data-lucide="arrow-left"></i>
+                Back to Site
+            </a>
+            <h1>REEL FLYER BUILDER</h1>
+            <p class="subtitle">Forró Dance Workshop | September</p>
+        </div>
+
+        <div class="panel-section">
+            <h2>Flyer Controls</h2>
+            
+            <button class="btn btn-primary" id="btnRecordMode">
+                <i data-lucide="maximize-2"></i>
+                <span>Start Recording Mode</span>
+            </button>
+            <p class="help-text">Record Mode scales the canvas to fill the screen and hides controls. Press <kbd>ESC</kbd> to exit.</p>
+
+            <button class="btn btn-secondary" id="btnPlayPause">
+                <i data-lucide="pause"></i>
+                <span>Pause Background Video</span>
+            </button>
+
+            <button class="btn btn-secondary" id="btnMute">
+                <i data-lucide="volume-x"></i>
+                <span>Unmute Video Audio</span>
+            </button>
+        </div>
+
+        <div class="panel-section">
+            <h2>Preview Zoom</h2>
+            <div class="zoom-controls">
+                <button class="btn btn-zoom active" data-zoom="0.4">40%</button>
+                <button class="btn btn-zoom" data-zoom="0.5">50%</button>
+                <button class="btn btn-zoom" data-zoom="0.65">65%</button>
+                <button class="btn btn-zoom" data-zoom="0.8">80%</button>
+                <button class="btn btn-zoom" data-zoom="1.0">100%</button>
+            </div>
+        </div>
+
+        <div class="panel-section instructions">
+            <h2>How to generate the Video:</h2>
+            <ol>
+                <li>Save your Canva video as <code>forro_video.mp4</code> and put it in the <code>assets/</code> folder. (The page uses an animated Brazilian gradient fallback if missing).</li>
+                <li>Optionally save a song loop as <code>forro_music.mp3</code> in <code>assets/</code>.</li>
+                <li>Click <strong>Start Recording Mode</strong>.</li>
+                <li>Use OBS Studio, Chrome screen recorder, or Loom to record the window/screen.</li>
+                <li>Press <kbd>ESC</kbd> to end recording, then edit or post to Instagram Reels!</li>
+            </ol>
+        </div>
+
+        <div class="panel-footer">
+            <p>Designed for Latin Dance MN</p>
+        </div>
+    </aside>
+
+    <!-- Main Workspace -->
+    <main class="workspace" id="workspace">
+        <div class="canvas-container" id="canvasContainer" style="transform: scale(0.4);">
+            <div class="reel-canvas" id="reelCanvas">
+                
+                <!-- Fallback Animated Gradient -->
+                <div class="animated-gradient" id="fallbackGradient"></div>
+                
+                <!-- Background Video -->
+                <video id="bgVideo" autoplay loop muted playsinline>
+                    <source src="assets/forro_video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="video-overlay"></div>
+
+                <!-- Glow dots inside canvas for premium depth -->
+                <div class="canvas-glow glow-top-left"></div>
+                <div class="canvas-glow glow-bottom-right"></div>
+
+                <!-- Flyer Content Overlays -->
+                <div class="flyer-content">
+                    
+                    <!-- Top Section: Brand Info -->
+                    <header class="flyer-header">
+                        <span class="location-badge">
+                            <i data-lucide="map-pin"></i>
+                            MINNEAPOLIS, MN
+                        </span>
+                        <div class="logo-backdrop animate-fade-in">
+                            <img src="assets/logo.png" class="brand-logo" alt="Latin Dance MN Logo">
+                        </div>
+                    </header>
+
+                    <!-- Middle Section: Event Core Title -->
+                    <section class="flyer-body">
+                        <div class="series-tag">4-WEEK BEGINNERS SERIES</div>
+                        <h2 class="title-forro">FORRÓ</h2>
+                        <h3 class="title-sub">DANCE WORKSHOP</h3>
+                        
+                        <!-- Event Detail Cards -->
+                        <div class="details-grid">
+                            <div class="glass-card detail-card card-time animate-slide-up" style="animation-delay: 0.2s;">
+                                <div class="card-icon"><i data-lucide="calendar"></i></div>
+                                <div class="card-text">
+                                    <span class="label">WHEN</span>
+                                    <span class="value">Thursdays in Sep</span>
+                                    <span class="sub-value">7:00 PM - 8:00 PM</span>
+                                </div>
+                            </div>
+
+                            <div class="glass-card detail-card card-location animate-slide-up" style="animation-delay: 0.4s;">
+                                <div class="card-icon"><i data-lucide="home"></i></div>
+                                <div class="card-text">
+                                    <span class="label">WHERE</span>
+                                    <span class="value">Sabathani Comm. Center</span>
+                                    <span class="sub-value">310 E 38th St, Minneapolis</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Special highlight pills -->
+                        <div class="pills-container">
+                            <div class="pill pill-green animate-pulse">
+                                <i data-lucide="circle-check"></i>
+                                FREE PARKING
+                            </div>
+                            <div class="pill pill-gold">
+                                <i data-lucide="sparkles"></i>
+                                ALL LEVELS WELCOME
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Bottom Section: Call to Action -->
+                    <footer class="flyer-footer animate-slide-up" style="animation-delay: 0.6s;">
+                        <div class="glass-card call-to-action">
+                            <div class="cta-header">
+                                <i data-lucide="info"></i>
+                                SECURE YOUR SPOT
+                            </div>
+                            <p class="cta-message">
+                                Make full payment of <span class="highlight">$60</span> by <span class="highlight">August 20</span>
+                            </p>
+                        </div>
+                        
+                        <div class="website-promo">
+                            <span class="promo-label">REGISTER AT:</span>
+                            <span class="promo-url">www.LatinDanceMN.com</span>
+                        </div>
+                    </footer>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Script to handle layout controls -->
+    <script src="flyer.js"></script>
+    <script>
+        // Initialize lucide icons inside canvas and controls
+        lucide.createIcons();
+    </script>
+</body>
+</html>

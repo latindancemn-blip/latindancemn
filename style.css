@@ -1330,6 +1330,12 @@ button, input, select, textarea {
     color: hsl(270, 75%, 65%);
 }
 
+.event-date-badge.thu {
+    background: rgba(0, 156, 59, 0.12);
+    border: 1px solid rgba(0, 156, 59, 0.25);
+    color: hsl(135, 75%, 65%);
+}
+
 .event-date-badge.sun {
     background: rgba(255, 62, 108, 0.12);
     border: 1px solid rgba(255, 62, 108, 0.25);
