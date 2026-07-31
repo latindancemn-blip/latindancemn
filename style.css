@@ -345,21 +345,17 @@ button, input, select, textarea {
     text-transform: uppercase;
 }
 .logo-img {
-    height: 48px;
+    height: 52px;
     width: auto;
     object-fit: contain;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 3px;
-    border-radius: 50%;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25), 0 0 12px rgba(255, 62, 108, 0.1);
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
     transition: var(--transition-smooth);
 }
 .logo:hover .logo-img {
-    transform: scale(1.08) rotate(3deg);
+    transform: scale(1.06) rotate(2deg);
 }
 .logo-text {
-    display: inline-flex;
-    align-items: center;
+    display: none;
 }
 .logo-accent {
     background: var(--grad-gold-pink);
@@ -626,6 +622,9 @@ button, input, select, textarea {
     height: 100%;
     object-fit: cover;
     transition: var(--transition-smooth);
+}
+.class-img-top {
+    object-position: center 15%;
 }
 .class-card:hover .class-img {
     transform: scale(1.06);
