@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 messageInput.value = `Hi Priscila! I would love to sign up for your 4-week Forró Dance Workshop on Thursdays in September (7:00 PM - 8:00 PM) at the Sabathani Community Center. Please let me know how to make the payment of $60 to secure my spot!`;
             } else if (className.includes('Beginners')) {
                 selectInquiry.value = 'class-signup';
-                messageInput.value = `Hi Priscila! I would love to sign up for your Samba Dance Foundations for Beginners on Wednesdays at 7:30 PM - 8:30 PM at the Center for Performing Arts. Please let me know the registration and payment details!`;
+                messageInput.value = `Hi Priscila! I would love to add my name to the waitlist for your Samba Dance Foundations for Beginners on Wednesdays at 7:30 PM - 8:30 PM at the Center for Performing Arts. Please let me know when a spot becomes available or when the class is confirmed to start!`;
             } else {
                 selectInquiry.value = 'class-signup';
                 messageInput.value = `Hi Priscila! I would love to sign up for your Samba Dance Foundations Intermediate on Wednesdays at 6:30 PM - 7:30 PM at the Center for Performing Arts. Please let me know the registration and payment details!`;
