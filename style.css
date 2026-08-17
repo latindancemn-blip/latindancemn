@@ -615,7 +615,7 @@ button, input, select, textarea {
 .class-img-container {
     position: relative;
     overflow: hidden;
-    aspect-ratio: 16/10;
+    aspect-ratio: 16/11.5;
 }
 .class-img {
     width: 100%;
@@ -625,6 +625,9 @@ button, input, select, textarea {
 }
 .class-img-top {
     object-position: center 15%;
+}
+.class-img-flyer {
+    object-position: center 35%;
 }
 .class-card:hover .class-img {
     transform: scale(1.06);
