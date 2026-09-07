@@ -683,6 +683,22 @@ button, input, select, textarea {
     font-size: 0.85rem;
     color: var(--text-muted);
 }
+.class-details li.class-pricing-multi {
+    align-items: flex-start;
+}
+.class-details li.class-pricing-multi i,
+.class-details li.class-pricing-multi svg {
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+.pricing-tier-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.pricing-tier-group div {
+    line-height: 1.4;
+}
 .class-details li i {
     width: 16px;
     height: 16px;
@@ -1534,6 +1550,170 @@ select.form-input {
 select.form-input option {
     background-color: var(--bg-darker);
     color: #fff;
+}
+
+/* Form Choice Grids (Role Preference & Experience Level) */
+.form-choice-section {
+    margin-bottom: 24px;
+    padding: 18px 20px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+.form-choice-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+.form-choice-label-text {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.form-label-hint {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--accent-gold);
+    text-transform: none;
+    letter-spacing: 0;
+}
+.form-checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+.form-radio-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+@media (max-width: 650px) {
+    .form-checkbox-grid,
+    .form-radio-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.custom-choice-card {
+    position: relative;
+    display: block;
+    cursor: pointer;
+    user-select: none;
+}
+.custom-choice-card input[type="checkbox"],
+.custom-choice-card input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.choice-card-content {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: var(--transition-fast);
+    height: 100%;
+}
+.custom-choice-card:hover .choice-card-content {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+.custom-choice-card input:focus-visible + .choice-card-content {
+    outline: 2px solid var(--accent-pink);
+}
+.custom-choice-card input:checked + .choice-card-content {
+    background: rgba(255, 62, 108, 0.12);
+    border-color: var(--accent-pink);
+    box-shadow: 0 0 16px rgba(255, 62, 108, 0.25);
+}
+.choice-text {
+    display: flex;
+    flex-direction: column;
+}
+.choice-title {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-light);
+    line-height: 1.3;
+}
+.choice-sub {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+.custom-choice-card input:checked + .choice-card-content .choice-title {
+    color: #fff;
+    font-weight: 700;
+}
+
+/* Custom Checkbox Indicator */
+.checkbox-indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    border: 1.5px solid var(--glass-border-focus);
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: var(--transition-fast);
+}
+.checkbox-indicator i,
+.checkbox-indicator svg {
+    width: 13px;
+    height: 13px;
+    color: transparent;
+    stroke: transparent;
+    transition: var(--transition-fast);
+}
+.custom-choice-card input:checked + .choice-card-content .checkbox-indicator {
+    background: var(--accent-pink);
+    border-color: var(--accent-pink);
+}
+.custom-choice-card input:checked + .choice-card-content .checkbox-indicator i,
+.custom-choice-card input:checked + .choice-card-content .checkbox-indicator svg {
+    color: #fff;
+    stroke: #fff;
+}
+
+/* Custom Radio Indicator */
+.radio-indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1.5px solid var(--glass-border-focus);
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: var(--transition-fast);
+}
+.radio-indicator .radio-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: transparent;
+    transition: var(--transition-fast);
+}
+.custom-choice-card input:checked + .choice-card-content .radio-indicator {
+    border-color: var(--accent-pink);
+}
+.custom-choice-card input:checked + .choice-card-content .radio-indicator .radio-dot {
+    background: var(--accent-pink);
+    box-shadow: 0 0 8px var(--accent-pink);
 }
 
 /* Success Form Overlay Screen */

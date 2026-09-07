@@ -88,14 +88,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const selectInquiry = document.getElementById('inquiryType');
     const messageInput = document.getElementById('message');
 
-    // Sign Up buttons in Class Cards
+    // Sign Up & Waitlist buttons in Class Cards
     const classTriggers = document.querySelectorAll('.class-book-trigger');
     classTriggers.forEach(trigger => {
         trigger.addEventListener('click', (e) => {
             const className = trigger.getAttribute('data-class');
             if (className.includes('Forró')) {
                 selectInquiry.value = 'forro-workshop';
-                messageInput.value = `Hi Priscila! I would love to sign up for your 4-week Forró Dance Workshop on Thursdays in September (7:00 PM - 8:00 PM) at the Sabathani Community Center. Please let me know the registration and payment details!`;
+                messageInput.value = `Hi Priscila! I would love to add my name to the waitlist for your upcoming Forró Dance Workshop (TBD – Possibly Thursdays in October, 7:00 PM – 9:00 PM at the Sabathani Community Center). Please let me know once registration opens!`;
             } else if (className.includes('Beginners')) {
                 selectInquiry.value = 'class-signup';
                 messageInput.value = `Hi Priscila! I would love to add my name to the waitlist for your Samba Dance Foundations for Beginners on Wednesdays at 7:30 PM - 8:30 PM at the Center for Performing Arts. Please let me know when a spot becomes available or when the class is confirmed to start!`;
@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Keyboard support for Lightbox
     document.addEventListener('keydown', (e) => {
-        if (!lightbox.classList.contains('active')) return;
+        if (!lightbox || !lightbox.classList.contains('active')) return;
         
         if (e.key === 'Escape') closeLightbox();
         if (e.key === 'ArrowRight') showNextImage();
@@ -237,11 +237,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Close on clicking lightbox backdrop background
-    lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox || e.target.classList.contains('lightbox-content')) {
-            closeLightbox();
-        }
-    });
+    if (lightbox) {
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox || e.target.classList.contains('lightbox-content')) {
+                closeLightbox();
+            }
+        });
+    }
 
     /* --------------------------------------------------------------------------
        8. SCROLL REVEAL ENTRANCE ANIMATIONS
