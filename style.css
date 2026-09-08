@@ -598,6 +598,14 @@ button, input, select, textarea {
 .classes {
     background-color: var(--bg-darker);
     position: relative;
+    padding: 90px 0;
+}
+.samba-lessons-section {
+    background-color: var(--bg-darker);
+}
+.forro-private-section {
+    background-color: var(--bg-dark);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 .classes-grid {
     display: grid;
@@ -703,6 +711,101 @@ button, input, select, textarea {
     width: 16px;
     height: 16px;
     color: var(--accent-pink);
+}
+
+/* Private Lessons Card & Dance Styles List */
+.tag-featured {
+    background: linear-gradient(135deg, rgba(255, 199, 0, 0.25), rgba(255, 62, 108, 0.25));
+    border: 1px solid rgba(255, 199, 0, 0.4);
+    color: #fff;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+.tag-featured i,
+.tag-featured svg {
+    width: 12px;
+    height: 12px;
+    color: var(--accent-gold);
+}
+.styles-levels-container {
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(8px);
+}
+.styles-levels-title {
+    font-family: var(--font-headers);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.75px;
+    color: var(--accent-gold);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+.styles-levels-title i,
+.styles-levels-title svg {
+    width: 14px;
+    height: 14px;
+    color: var(--accent-pink);
+}
+.styles-levels-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.style-level-badge {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    padding: 6px 12px;
+    transition: var(--transition-fast);
+}
+.style-level-badge:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.12);
+    transform: translateX(2px);
+}
+.dance-name {
+    font-weight: 600;
+    font-size: 0.86rem;
+    color: var(--text-light);
+}
+.dance-level {
+    color: var(--accent-teal);
+    font-size: 0.72rem;
+    font-weight: 600;
+    background: rgba(0, 245, 160, 0.1);
+    border: 1px solid rgba(0, 245, 160, 0.25);
+    padding: 2px 8px;
+    border-radius: 12px;
+    white-space: nowrap;
+}
+.class-details li.class-pricing-package {
+    align-items: flex-start;
+}
+.class-details li.class-pricing-package i,
+.class-details li.class-pricing-package svg {
+    margin-top: 3px;
+    flex-shrink: 0;
+    color: var(--accent-gold);
+}
+.package-subtitle {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+    line-height: 1.35;
 }
 
 /* --------------------------------------------------------------------------

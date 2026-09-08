@@ -93,7 +93,10 @@ document.addEventListener('DOMContentLoaded', () => {
     classTriggers.forEach(trigger => {
         trigger.addEventListener('click', (e) => {
             const className = trigger.getAttribute('data-class');
-            if (className.includes('Forró')) {
+            if (className.includes('Private')) {
+                selectInquiry.value = 'private-coaching';
+                messageInput.value = `Hi Priscila! I'm interested in booking the 4-Class Package for Private Dance Lessons ($240, 4 consecutive weekly 45-minute lessons at the St. Louis Park studio). My preferred dance style is [Forró / Samba Solo / Samba de Gafieira / Bachata / Salsa] and I'd love to schedule my first lesson!`;
+            } else if (className.includes('Forró')) {
                 selectInquiry.value = 'forro-workshop';
                 messageInput.value = `Hi Priscila! I would love to add my name to the waitlist for your upcoming Forró Dance Workshop (TBD – Possibly Thursdays in October, 7:00 PM – 9:00 PM at the Sabathani Community Center). Please let me know once registration opens!`;
             } else if (className.includes('Beginners')) {
