@@ -326,7 +326,7 @@
                 <!-- Class Card 2 -->
                 <div class="class-card glass animate-on-scroll">
                     <div class="class-img-container">
-                        <img src="assets/hero_bg.png" alt="Forró Beginners Workshop" class="class-img">
+                        <img src="assets/forro_photo.jpg" alt="Forró Beginners Workshop" class="class-img">
                         <span class="class-tag">1-Month Workshop</span>
                     </div>
                     <div class="class-body">
