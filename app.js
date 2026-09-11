@@ -96,9 +96,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (className.includes('Private')) {
                 selectInquiry.value = 'private-coaching';
                 messageInput.value = `Hi Priscila! I'm interested in booking the 4-Class Package for Private Dance Lessons ($240, 4 consecutive weekly 45-minute lessons at the St. Louis Park studio). My preferred dance style is [Forró / Samba Solo / Samba de Gafieira / Bachata / Salsa] and I'd love to schedule my first lesson!`;
+            } else if (className.includes('Basic #2') || className.includes('5-Week')) {
+                selectInquiry.value = 'forro-workshop';
+                messageInput.value = `Hi Priscila! I would love to sign up for the 5-Week Forró Dance Workshop Basic #2 (Thursdays in October, 7:00 PM – 8:00 PM at Sabathani Community Center). Please let me know how to complete my registration!`;
+            } else if (className.includes('Basic #1') || className.includes('4-Week')) {
+                selectInquiry.value = 'forro-workshop';
+                messageInput.value = `Hi Priscila! I would love to add my name to the waitlist for the 4-Week Forró Dance Workshop Basic #1 ($60 Beginners Forró do Zero at Sabathani Community Center). Please let me know once dates and registration are confirmed!`;
             } else if (className.includes('Forró')) {
                 selectInquiry.value = 'forro-workshop';
-                messageInput.value = `Hi Priscila! I would love to add my name to the waitlist for your upcoming Forró Dance Workshop (TBD – Possibly Thursdays in October, 7:00 PM – 9:00 PM at the Sabathani Community Center). Please let me know once registration opens!`;
+                messageInput.value = `Hi Priscila! I would love to join your upcoming Forró Dance Workshop at Sabathani Community Center. Please let me know the details!`;
             } else if (className.includes('Beginners')) {
                 selectInquiry.value = 'class-signup';
                 messageInput.value = `Hi Priscila! I would love to add my name to the waitlist for your Samba Dance Foundations for Beginners on Wednesdays at 7:30 PM - 8:30 PM at the Center for Performing Arts. Please let me know when a spot becomes available or when the class is confirmed to start!`;
