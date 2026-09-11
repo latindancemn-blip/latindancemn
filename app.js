@@ -105,9 +105,12 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (className.includes('Forró')) {
                 selectInquiry.value = 'forro-workshop';
                 messageInput.value = `Hi Priscila! I would love to join your upcoming Forró Dance Workshop at Sabathani Community Center. Please let me know the details!`;
-            } else if (className.includes('Beginners')) {
+            } else if (className.includes('Free September') || className.includes('TRY FOR FREE')) {
                 selectInquiry.value = 'class-signup';
-                messageInput.value = `Hi Priscila! I would love to add my name to the waitlist for your Samba Dance Foundations for Beginners on Wednesdays at 7:30 PM - 8:30 PM at the Center for Performing Arts. Please let me know when a spot becomes available or when the class is confirmed to start!`;
+                messageInput.value = `Hi Priscila! I would love to sign up for Samba Dance Foundations for Beginners — TRY FOR FREE in September Only (Wednesdays at 7:30 PM - 8:30 PM at the Center for Performing Arts)!`;
+            } else if (className.includes('October') || className.includes('Beginners')) {
+                selectInquiry.value = 'class-signup';
+                messageInput.value = `Hi Priscila! I would love to sign up for Samba Dance Foundations for Beginners starting October 7, 2026 (Wednesdays at 7:30 PM - 8:30 PM at Studio 305, Center for Performing Arts). Please let me know the registration and payment details!`;
             } else {
                 selectInquiry.value = 'class-signup';
                 messageInput.value = `Hi Priscila! I would love to sign up for your Samba Dance Foundations Intermediate on Wednesdays at 6:30 PM - 7:30 PM at the Center for Performing Arts. Please let me know the registration and payment details!`;
