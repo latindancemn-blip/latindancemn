@@ -693,9 +693,15 @@
                         <input type="hidden" name="_captcha" value="false">
                         <h3 class="form-title">Send a Booking & Class Inquiry</h3>
                         
-                        <div class="form-group">
-                            <label for="name" class="form-label">Full Name</label>
-                            <input type="text" id="name" name="name" class="form-input" placeholder="Your name" required>
+                        <div class="form-group-row">
+                            <div class="form-group">
+                                <label for="name" class="form-label">Full Name <span style="color: var(--accent-pink);">*</span></label>
+                                <input type="text" id="name" name="name" class="form-input" placeholder="Your name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone" class="form-label">Phone Number (Optional)</label>
+                                <input type="tel" id="phone" name="phone" class="form-input" placeholder="(555) 000-0000" autocomplete="tel">
+                            </div>
                         </div>
 
                         <div class="form-group-row">
@@ -704,9 +710,10 @@
                                 <input type="email" id="email" name="email" class="form-input" placeholder="you@example.com" required autocomplete="email" spellcheck="false">
                                 <div id="emailFeedback" class="field-feedback" aria-live="polite"></div>
                             </div>
-                            <div class="form-group">
-                                <label for="phone" class="form-label">Phone Number (Optional)</label>
-                                <input type="tel" id="phone" name="phone" class="form-input" placeholder="(555) 000-0000" autocomplete="tel">
+                            <div class="form-group confirm-email-field-group">
+                                <label for="confirmEmail" class="form-label">Confirm Email Address <span style="color: var(--accent-pink);">*</span></label>
+                                <input type="email" id="confirmEmail" name="confirmEmail" class="form-input" placeholder="Re-enter your email" required autocomplete="email" spellcheck="false">
+                                <div id="confirmEmailFeedback" class="field-feedback" aria-live="polite"></div>
                             </div>
                         </div>
 

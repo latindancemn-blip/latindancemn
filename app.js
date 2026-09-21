@@ -127,47 +127,105 @@ document.addEventListener('DOMContentLoaded', () => {
     const formSuccess = document.getElementById('formSuccess');
     const resetFormBtn = document.getElementById('resetFormBtn');
 
-    // Common domain typo correction dictionary
+    // Popular email domains to check against
+    const POPULAR_DOMAINS = [
+        'gmail.com',
+        'yahoo.com',
+        'hotmail.com',
+        'outlook.com',
+        'icloud.com',
+        'aol.com',
+        'comcast.net',
+        'msn.com',
+        'live.com',
+        'me.com',
+        'mac.com',
+        'sbcglobal.net',
+        'att.net',
+        'verizon.net'
+    ];
+
+    // Explicit common misspellings mapping
     const DOMAIN_TYPOS = {
-        // Gmail typos
         'gmai.com': 'gmail.com',
         'gamil.com': 'gmail.com',
         'gmial.com': 'gmail.com',
         'gmaill.com': 'gmail.com',
         'gmaul.com': 'gmail.com',
         'gmaik.com': 'gmail.com',
-        'gmail.con': 'gmail.com',
-        'gmail.co': 'gmail.com',
-        'gmaio.com': 'gmail.com',
+        'gmil.com': 'gmail.com',
+        'gail.com': 'gmail.com',
         'gmal.com': 'gmail.com',
         'gmale.com': 'gmail.com',
-        'gmai.co': 'gmail.com',
+        'gma.com': 'gmail.com',
+        'gmail.con': 'gmail.com',
+        'gmail.co': 'gmail.com',
         'gmail.cm': 'gmail.com',
-        // Yahoo typos
+        'gmail.om': 'gmail.com',
         'yaho.com': 'yahoo.com',
         'yahooo.com': 'yahoo.com',
         'yhaoo.com': 'yahoo.com',
         'yahoo.con': 'yahoo.com',
         'yhoo.com': 'yahoo.com',
         'ymail.con': 'ymail.com',
-        // Hotmail typos
         'hotmial.com': 'hotmail.com',
         'hotmaill.com': 'hotmail.com',
         'homail.com': 'hotmail.com',
         'hotamil.com': 'hotmail.com',
+        'hotmil.com': 'hotmail.com',
         'hotmail.con': 'hotmail.com',
         'hotmai.com': 'hotmail.com',
-        // Outlook typos
         'outlok.com': 'outlook.com',
         'outloo.com': 'outlook.com',
+        'outlk.com': 'outlook.com',
         'outlook.con': 'outlook.com',
         'outlock.com': 'outlook.com',
-        // iCloud typos
         'iclud.com': 'icloud.com',
         'icoud.com': 'icloud.com',
         'icloud.con': 'icloud.com',
         'icluod.com': 'icloud.com'
     };
+
+    // Calculate Levenshtein edit distance between two strings
+    function getLevenshteinDistance(a, b) {
+        const matrix = [];
+        for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+        for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+        for (let i = 1; i <= b.length; i++) {
+            for (let j = 1; j <= a.length; j++) {
+                if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                    matrix[i][j] = matrix[i - 1][j - 1];
+                } else {
+                    matrix[i][j] = Math.min(
+                        matrix[i - 1][j - 1] + 1, // substitution
+                        matrix[i][j - 1] + 1,     // insertion
+                        matrix[i - 1][j] + 1      // deletion
+                    );
+                }
+            }
+        }
+        return matrix[b.length][a.length];
+    }
+
+    // Find if domain is a close typo of any major domain
+    function getFuzzyDomainSuggestion(inputDomain) {
+        const domain = inputDomain.toLowerCase().trim();
+        if (POPULAR_DOMAINS.includes(domain)) return null;
+        if (DOMAIN_TYPOS[domain]) return DOMAIN_TYPOS[domain];
+
+        let bestMatch = null;
+        let minDistance = Infinity;
+
+        for (const popular of POPULAR_DOMAINS) {
+            const dist = getLevenshteinDistance(domain, popular);
+            const maxAllowed = popular.length <= 6 ? 1 : 2;
+            if (dist <= maxAllowed && dist < minDistance) {
+                minDistance = dist;
+                bestMatch = popular;
+            }
+        }
+        return bestMatch;
+    }
 
     let userOverrodeSuggestion = false;
 
@@ -198,9 +256,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const local = parts[0];
         const domain = parts[1].toLowerCase();
 
-        // Check for common top-level domain typos (e.g. .con instead of .com)
-        if (DOMAIN_TYPOS[domain]) {
-            const suggestedEmail = `${local}@${DOMAIN_TYPOS[domain]}`;
+        // 1. Direct typo check or fuzzy match
+        const suggestedDomain = getFuzzyDomainSuggestion(domain);
+        if (suggestedDomain && suggestedDomain !== domain) {
+            const suggestedEmail = `${local}@${suggestedDomain}`;
             return {
                 isValid: true,
                 isSuggestion: true,
@@ -209,8 +268,9 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         }
 
-        if (domain.endsWith('.con')) {
-            const correctedDomain = domain.replace(/\.con$/, '.com');
+        // 2. Generic top-level typo (e.g., ends in .con or .cmo)
+        if (domain.endsWith('.con') || domain.endsWith('.cmo') || domain.endsWith('.cpm')) {
+            const correctedDomain = domain.replace(/\.(con|cmo|cpm)$/, '.com');
             const suggestedEmail = `${local}@${correctedDomain}`;
             return {
                 isValid: true,
@@ -220,7 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         }
 
-        // TLD length check
+        // 3. TLD length check
         const tld = domain.substring(domain.lastIndexOf('.') + 1);
         if (tld.length < 2) {
             return { isValid: false, message: 'Domain extension is too short (e.g., .com).' };
@@ -270,10 +330,43 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    const confirmEmailInput = document.getElementById('confirmEmail');
+    const confirmEmailFeedback = document.getElementById('confirmEmailFeedback');
+
+    function validateConfirmEmailField() {
+        if (!confirmEmailInput || !emailInput) return { isValid: true };
+
+        const emailVal = emailInput.value.trim();
+        const confirmVal = confirmEmailInput.value.trim();
+
+        confirmEmailInput.classList.remove('is-invalid', 'is-valid', 'shake');
+
+        if (!confirmVal) {
+            confirmEmailFeedback.className = 'field-feedback';
+            confirmEmailFeedback.innerHTML = '';
+            return { isValid: false, isEmpty: true };
+        }
+
+        if (emailVal.toLowerCase() !== confirmVal.toLowerCase()) {
+            confirmEmailInput.classList.add('is-invalid');
+            confirmEmailFeedback.className = 'field-feedback error active';
+            confirmEmailFeedback.innerHTML = '⚠️ Email addresses do not match.';
+            return { isValid: false, isMismatch: true };
+        }
+
+        confirmEmailInput.classList.add('is-valid');
+        confirmEmailFeedback.className = 'field-feedback';
+        confirmEmailFeedback.innerHTML = '';
+        return { isValid: true };
+    }
+
     function validateEmailField() {
         if (!emailInput) return { isValid: true };
         const status = getEmailValidationStatus(emailInput.value);
         renderEmailFeedback(status);
+        if (confirmEmailInput && confirmEmailInput.value.trim().length > 0) {
+            validateConfirmEmailField();
+        }
         return status;
     }
 
@@ -296,24 +389,57 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    if (confirmEmailInput) {
+        confirmEmailInput.addEventListener('input', () => {
+            if (confirmEmailInput.value.trim().length > 0) {
+                validateConfirmEmailField();
+            } else {
+                confirmEmailInput.classList.remove('is-invalid', 'is-valid');
+                confirmEmailFeedback.className = 'field-feedback';
+                confirmEmailFeedback.innerHTML = '';
+            }
+        });
+
+        confirmEmailInput.addEventListener('blur', () => {
+            if (confirmEmailInput.value.trim().length > 0) {
+                validateConfirmEmailField();
+            }
+        });
+    }
+
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
             const emailStatus = validateEmailField();
+            const confirmStatus = validateConfirmEmailField();
 
             if (!emailStatus.isValid || (emailStatus.isSuggestion && !userOverrodeSuggestion)) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 
                 emailInput.classList.remove('shake');
-                // Trigger reflow to restart CSS shake animation
                 void emailInput.offsetWidth;
                 emailInput.classList.add('shake');
                 emailInput.focus();
 
                 if (emailStatus.isSuggestion) {
-                    // If user submits again without clicking fix, permit intentional submission
                     userOverrodeSuggestion = true;
                 }
+                return;
+            }
+
+            if (!confirmStatus.isValid) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+
+                confirmEmailInput.classList.remove('shake');
+                void confirmEmailInput.offsetWidth;
+                confirmEmailInput.classList.add('shake');
+                if (confirmStatus.isEmpty) {
+                    confirmEmailInput.classList.add('is-invalid');
+                    confirmEmailFeedback.className = 'field-feedback error active';
+                    confirmEmailFeedback.innerHTML = '⚠️ Please confirm your email address.';
+                }
+                confirmEmailInput.focus();
                 return;
             }
 
@@ -346,7 +472,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         emailFeedback.className = 'field-feedback';
                         emailFeedback.innerHTML = '';
                     }
+                    if (confirmEmailFeedback) {
+                        confirmEmailFeedback.className = 'field-feedback';
+                        confirmEmailFeedback.innerHTML = '';
+                    }
                     if (emailInput) emailInput.classList.remove('is-valid', 'is-invalid', 'is-warning');
+                    if (confirmEmailInput) confirmEmailInput.classList.remove('is-valid', 'is-invalid', 'is-warning');
                 } else {
                     alert('Oops! There was a problem submitting your form. Please try again.');
                 }
