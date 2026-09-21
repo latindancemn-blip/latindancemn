@@ -530,6 +530,7 @@
                             <select id="inquiryType" name="inquiryType" class="form-input" required>
                                 <option value="" disabled selected>Select an option</option>
                                 <option value="class-signup">Sign up for Samba Classes</option>
+                                <option value="dance-team">Inquiry about Dance Team</option>
                                 <option value="forro-workshop">Forró Workshop</option>
                                 <option value="show-tickets">Aurora do Samba Tickets Info</option>
                                 <option value="performance-booking">Book a Performance Show</option>
