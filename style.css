@@ -1677,6 +1677,99 @@ button, input, select, textarea {
     background: rgba(255, 255, 255, 0.06);
     box-shadow: 0 0 10px rgba(255, 62, 108, 0.15);
 }
+
+/* Smart Form Field Validation & Feedback */
+.email-field-group {
+    position: relative;
+}
+
+.form-input.is-invalid {
+    border-color: #ff4d6d !important;
+    background: rgba(255, 77, 109, 0.08) !important;
+    box-shadow: 0 0 12px rgba(255, 77, 109, 0.25) !important;
+}
+
+.form-input.is-warning {
+    border-color: var(--accent-gold) !important;
+    background: rgba(255, 199, 0, 0.08) !important;
+    box-shadow: 0 0 12px rgba(255, 199, 0, 0.25) !important;
+}
+
+.form-input.is-valid {
+    border-color: #00c9a7 !important;
+    background: rgba(0, 201, 167, 0.06) !important;
+    box-shadow: 0 0 10px rgba(0, 201, 167, 0.2) !important;
+}
+
+.form-input.shake {
+    animation: inputShake 0.4s ease-in-out;
+}
+
+@keyframes inputShake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+}
+
+.field-feedback {
+    display: none;
+    margin-top: 8px;
+    font-size: 0.82rem;
+    line-height: 1.4;
+    border-radius: 8px;
+    padding: 6px 12px;
+    animation: fadeIn 0.25s ease-out;
+}
+
+.field-feedback.active {
+    display: block;
+}
+
+.field-feedback.error {
+    background: rgba(255, 77, 109, 0.15);
+    border: 1px solid rgba(255, 77, 109, 0.35);
+    color: #ff94a4;
+}
+
+.field-feedback.warning {
+    background: rgba(255, 199, 0, 0.14);
+    border: 1px solid rgba(255, 199, 0, 0.35);
+    color: #ffe066;
+}
+
+.field-feedback.success {
+    background: rgba(0, 201, 167, 0.12);
+    border: 1px solid rgba(0, 201, 167, 0.35);
+    color: #4ee6ca;
+}
+
+.email-suggestion-chip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.email-suggestion-btn {
+    background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+    color: #fff;
+    border: none;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    box-shadow: 0 2px 8px rgba(255, 62, 108, 0.3);
+}
+
+.email-suggestion-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 62, 108, 0.5);
+    filter: brightness(1.1);
+}
+
 .form-textarea {
     resize: vertical;
     min-height: 110px;

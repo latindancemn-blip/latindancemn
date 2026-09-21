@@ -407,21 +407,35 @@
             </div>
             
             <div class="classes-grid">
-                <!-- Class Card 1: 5-Week Forró Dance Workshop Basic #2 -->
+                <!-- Class Card 1: 5-Week Forró Dance Basics #2 -->
                 <div class="class-card glass animate-on-scroll">
                     <div class="class-img-container">
-                        <img src="assets/forro_photo.jpg" alt="5-Week Forró Dance Workshop Basic #2" class="class-img class-img-top">
-                        <span class="class-tag">5-Week Workshop</span>
+                        <img src="assets/forro_photo.jpg" alt="5-Week Forró Dance Basics #2" class="class-img class-img-top">
+                        <span class="class-tag tag-featured"><i data-lucide="sparkles"></i> Early Bird Special</span>
                     </div>
                     <div class="class-body">
-                        <h3 class="class-title">5-Week Forró Dance Workshop Basic #2</h3>
+                        <h3 class="class-title">5-Week Forró Dance Basics #2</h3>
                         <p class="class-desc">Learn the joyful partner dance of Northeastern Brazil. Must have completed Workshop #1, or know basic Forró moves + Men´s turn + Ladies´turn + Giro Paulista. Feel free to reach out with questions.</p>
+                        
+                        <!-- Early Bird Promotional Banner -->
+                        <div class="promo-callout">
+                            <div class="promo-callout-header">
+                                <i data-lucide="sparkles"></i>
+                                <span>Early Bird Special!</span>
+                            </div>
+                            <div class="promo-callout-body">
+                                Save <strong>$10</strong> when you register and pay by <strong>September 25</strong>.<br>
+                                <span class="promo-price-highlight">5-Week Forró Dance Basics #2 for only $65. 🎉</span>
+                            </div>
+                        </div>
+
                         <ul class="class-details">
                             <li><i data-lucide="clock"></i> Thursdays in October &bull; Time: 7:00 PM – 8:00 PM</li>
                             <li><i data-lucide="map-pin"></i> Sabathani Community Center, Minneapolis</li>
                             <li class="class-pricing-multi">
                                 <i data-lucide="dollar-sign"></i>
                                 <div class="pricing-tier-group">
+                                    <div><strong style="color: var(--accent-gold);">$65 Early Bird</strong> – if registered &amp; paid by September 25 (Save $10!)</div>
                                     <div><strong>$75</strong> – if paid by September 30</div>
                                     <div><strong>$85</strong> – if paid after September 30</div>
                                 </div>
@@ -685,13 +699,14 @@
                         </div>
 
                         <div class="form-group-row">
-                            <div class="form-group">
-                                <label for="email" class="form-label">Email Address</label>
-                                <input type="email" id="email" name="email" class="form-input" placeholder="you@example.com" required>
+                            <div class="form-group email-field-group">
+                                <label for="email" class="form-label">Email Address <span style="color: var(--accent-pink);">*</span></label>
+                                <input type="email" id="email" name="email" class="form-input" placeholder="you@example.com" required autocomplete="email" spellcheck="false">
+                                <div id="emailFeedback" class="field-feedback" aria-live="polite"></div>
                             </div>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Phone Number (Optional)</label>
-                                <input type="tel" id="phone" name="phone" class="form-input" placeholder="(555) 000-0000">
+                                <input type="tel" id="phone" name="phone" class="form-input" placeholder="(555) 000-0000" autocomplete="tel">
                             </div>
                         </div>
 

@@ -119,55 +119,254 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /* --------------------------------------------------------------------------
-       5. CONTACT & BOOKING FORM CONTROLLER (AJAX-STYLE RESPONSE)
+       5. SMART EMAIL VALIDATION & BOOKING FORM CONTROLLER
        -------------------------------------------------------------------------- */
     const contactForm = document.getElementById('contactForm');
+    const emailInput = document.getElementById('email');
+    const emailFeedback = document.getElementById('emailFeedback');
     const formSuccess = document.getElementById('formSuccess');
     const resetFormBtn = document.getElementById('resetFormBtn');
 
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        const submitBtn = document.getElementById('submitBtn');
-        const btnText = submitBtn.querySelector('span');
-        const originalText = btnText.textContent;
-        
-        btnText.textContent = 'Sending Samba Request...';
-        submitBtn.style.pointerEvents = 'none';
+    // Common domain typo correction dictionary
+    const DOMAIN_TYPOS = {
+        // Gmail typos
+        'gmai.com': 'gmail.com',
+        'gamil.com': 'gmail.com',
+        'gmial.com': 'gmail.com',
+        'gmaill.com': 'gmail.com',
+        'gmaul.com': 'gmail.com',
+        'gmaik.com': 'gmail.com',
+        'gmail.con': 'gmail.com',
+        'gmail.co': 'gmail.com',
+        'gmaio.com': 'gmail.com',
+        'gmal.com': 'gmail.com',
+        'gmale.com': 'gmail.com',
+        'gmai.co': 'gmail.com',
+        'gmail.cm': 'gmail.com',
+        // Yahoo typos
+        'yaho.com': 'yahoo.com',
+        'yahooo.com': 'yahoo.com',
+        'yhaoo.com': 'yahoo.com',
+        'yahoo.con': 'yahoo.com',
+        'yhoo.com': 'yahoo.com',
+        'ymail.con': 'ymail.com',
+        // Hotmail typos
+        'hotmial.com': 'hotmail.com',
+        'hotmaill.com': 'hotmail.com',
+        'homail.com': 'hotmail.com',
+        'hotamil.com': 'hotmail.com',
+        'hotmail.con': 'hotmail.com',
+        'hotmai.com': 'hotmail.com',
+        // Outlook typos
+        'outlok.com': 'outlook.com',
+        'outloo.com': 'outlook.com',
+        'outlook.con': 'outlook.com',
+        'outlock.com': 'outlook.com',
+        // iCloud typos
+        'iclud.com': 'icloud.com',
+        'icoud.com': 'icloud.com',
+        'icloud.con': 'icloud.com',
+        'icluod.com': 'icloud.com'
+    };
 
-        // Pack form data into FormData object
-        const formData = new FormData(contactForm);
+    let userOverrodeSuggestion = false;
 
-        // Submit to Formspree via AJAX
-        fetch('https://formspree.io/f/mykvngkq', {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json'
+    function getEmailValidationStatus(val) {
+        const email = (val || '').trim();
+        if (!email) {
+            return { isValid: false, isEmpty: true, message: 'Please enter your email address.' };
+        }
+
+        // Standard strict RFC pattern
+        const basicRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+        
+        if (!basicRegex.test(email)) {
+            if (!email.includes('@')) {
+                return { isValid: false, message: 'Missing "@" in email address.' };
             }
-        })
-        .then(response => {
-            if (response.ok) {
-                // Show success animation overlay
-                formSuccess.classList.add('active');
-                contactForm.reset();
-            } else {
-                alert('Oops! There was a problem submitting your form. Please try again.');
+            const parts = email.split('@');
+            if (parts.length > 2) {
+                return { isValid: false, message: 'Email cannot contain multiple "@" symbols.' };
             }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('There was a connection error. Please try again.');
-        })
-        .finally(() => {
-            btnText.textContent = originalText;
-            submitBtn.style.pointerEvents = 'auto';
+            if (!parts[1] || !parts[1].includes('.')) {
+                return { isValid: false, message: 'Please include a full domain ending (e.g. .com, .org).' };
+            }
+            return { isValid: false, message: 'Please enter a valid email address (e.g., name@example.com).' };
+        }
+
+        const parts = email.split('@');
+        const local = parts[0];
+        const domain = parts[1].toLowerCase();
+
+        // Check for common top-level domain typos (e.g. .con instead of .com)
+        if (DOMAIN_TYPOS[domain]) {
+            const suggestedEmail = `${local}@${DOMAIN_TYPOS[domain]}`;
+            return {
+                isValid: true,
+                isSuggestion: true,
+                suggestedEmail: suggestedEmail,
+                message: `Did you mean <strong>${suggestedEmail}</strong>?`
+            };
+        }
+
+        if (domain.endsWith('.con')) {
+            const correctedDomain = domain.replace(/\.con$/, '.com');
+            const suggestedEmail = `${local}@${correctedDomain}`;
+            return {
+                isValid: true,
+                isSuggestion: true,
+                suggestedEmail: suggestedEmail,
+                message: `Did you mean <strong>${suggestedEmail}</strong>?`
+            };
+        }
+
+        // TLD length check
+        const tld = domain.substring(domain.lastIndexOf('.') + 1);
+        if (tld.length < 2) {
+            return { isValid: false, message: 'Domain extension is too short (e.g., .com).' };
+        }
+
+        return { isValid: true, isSuggestion: false };
+    }
+
+    function renderEmailFeedback(status) {
+        if (!emailFeedback || !emailInput) return;
+
+        emailInput.classList.remove('is-invalid', 'is-valid', 'is-warning', 'shake');
+
+        if (status.isEmpty) {
+            emailFeedback.className = 'field-feedback';
+            emailFeedback.innerHTML = '';
+            return;
+        }
+
+        if (!status.isValid) {
+            emailInput.classList.add('is-invalid');
+            emailFeedback.className = 'field-feedback error active';
+            emailFeedback.innerHTML = `⚠️ ${status.message}`;
+        } else if (status.isSuggestion && !userOverrodeSuggestion) {
+            emailInput.classList.add('is-warning');
+            emailFeedback.className = 'field-feedback warning active';
+            emailFeedback.innerHTML = `
+                <div class="email-suggestion-chip">
+                    <span>${status.message}</span>
+                    <button type="button" class="email-suggestion-btn" id="btnApplyEmailFix">Use this email</button>
+                </div>
+            `;
+            
+            const btnFix = document.getElementById('btnApplyEmailFix');
+            if (btnFix) {
+                btnFix.addEventListener('click', () => {
+                    emailInput.value = status.suggestedEmail;
+                    userOverrodeSuggestion = false;
+                    validateEmailField();
+                    emailInput.focus();
+                });
+            }
+        } else {
+            emailInput.classList.add('is-valid');
+            emailFeedback.className = 'field-feedback';
+            emailFeedback.innerHTML = '';
+        }
+    }
+
+    function validateEmailField() {
+        if (!emailInput) return { isValid: true };
+        const status = getEmailValidationStatus(emailInput.value);
+        renderEmailFeedback(status);
+        return status;
+    }
+
+    if (emailInput) {
+        emailInput.addEventListener('input', () => {
+            userOverrodeSuggestion = false;
+            // Validate on input if currently showing an error or warning
+            if (emailInput.classList.contains('is-invalid') || emailInput.classList.contains('is-warning')) {
+                validateEmailField();
+            } else if (emailInput.value.includes('@') && emailInput.value.includes('.')) {
+                // Check if user typed a complete domain
+                validateEmailField();
+            }
         });
-    });
 
-    resetFormBtn.addEventListener('click', () => {
-        formSuccess.classList.remove('active');
-    });
+        emailInput.addEventListener('blur', () => {
+            if (emailInput.value.trim().length > 0) {
+                validateEmailField();
+            }
+        });
+    }
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            const emailStatus = validateEmailField();
+
+            if (!emailStatus.isValid || (emailStatus.isSuggestion && !userOverrodeSuggestion)) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                
+                emailInput.classList.remove('shake');
+                // Trigger reflow to restart CSS shake animation
+                void emailInput.offsetWidth;
+                emailInput.classList.add('shake');
+                emailInput.focus();
+
+                if (emailStatus.isSuggestion) {
+                    // If user submits again without clicking fix, permit intentional submission
+                    userOverrodeSuggestion = true;
+                }
+                return;
+            }
+
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = submitBtn ? submitBtn.querySelector('span') : null;
+            const originalText = btnText ? btnText.textContent : 'Send Request';
+            
+            if (btnText) btnText.textContent = 'Sending Samba Request...';
+            if (submitBtn) submitBtn.style.pointerEvents = 'none';
+
+            // Pack form data into FormData object
+            const formData = new FormData(contactForm);
+
+            // Submit to Formspree via AJAX
+            fetch('https://formspree.io/f/mykvngkq', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Show success animation overlay
+                    if (formSuccess) formSuccess.classList.add('active');
+                    contactForm.reset();
+                    if (emailFeedback) {
+                        emailFeedback.className = 'field-feedback';
+                        emailFeedback.innerHTML = '';
+                    }
+                    if (emailInput) emailInput.classList.remove('is-valid', 'is-invalid', 'is-warning');
+                } else {
+                    alert('Oops! There was a problem submitting your form. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was a connection error. Please try again.');
+            })
+            .finally(() => {
+                if (btnText) btnText.textContent = originalText;
+                if (submitBtn) submitBtn.style.pointerEvents = 'auto';
+            });
+        });
+    }
+
+    if (resetFormBtn) {
+        resetFormBtn.addEventListener('click', () => {
+            if (formSuccess) formSuccess.classList.remove('active');
+        });
+    }
 
 
 
