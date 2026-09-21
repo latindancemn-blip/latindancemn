@@ -729,6 +729,46 @@ button, input, select, textarea {
     height: 12px;
     color: var(--accent-gold);
 }
+
+/* Promotional Callout Banner */
+.promo-callout {
+    background: linear-gradient(135deg, rgba(255, 199, 0, 0.12), rgba(255, 62, 108, 0.12));
+    border: 1px solid rgba(255, 199, 0, 0.4);
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 16px;
+    backdrop-filter: blur(8px);
+}
+.promo-callout-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    color: var(--accent-gold);
+    font-size: 0.92rem;
+    margin-bottom: 5px;
+    letter-spacing: 0.3px;
+}
+.promo-callout-header i,
+.promo-callout-header svg {
+    width: 15px;
+    height: 15px;
+    color: var(--accent-gold);
+}
+.promo-callout-body {
+    font-size: 0.86rem;
+    color: var(--text-light);
+    line-height: 1.45;
+}
+.promo-callout-body strong {
+    color: #fff;
+}
+.promo-callout-body .promo-price-highlight {
+    color: var(--accent-gold);
+    font-weight: 700;
+    font-size: 0.92rem;
+}
+
 .styles-levels-container {
     background: rgba(255, 255, 255, 0.025);
     border: 1px solid var(--glass-border);
