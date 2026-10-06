@@ -101,7 +101,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 messageInput.value = `Hi Priscila! I would love to sign up for the 5-Week Forró Dance Workshop Basic #2 ($75 if paid by September 30, $85 afterwards, Thursdays in October 7:00 PM – 8:00 PM at Sabathani Community Center). Please let me know how to complete my registration!`;
             } else if (className.includes('Basic #1') || className.includes('Basics #1') || className.includes('5-Week') || className.includes('4-Week')) {
                 selectInquiry.value = 'forro-workshop';
-                messageInput.value = `Hi Priscila! I would love to add my name to the waitlist for the 5-Week Forró Dance Basics #1 (Early Bird Special: $65 if registered & paid by September 25, regular $75 at Sabathani Community Center). Please let me know once dates and registration are confirmed!`;
+                messageInput.value = `Hi Priscila! I’d love to add my name to the waitlist for the 4-Week Forró Dance Basics #1 at Sabathani Community Center. I’m happy to pay the full tuition of $65.
+
+Please let me know once the dates and registration are confirmed. Thank you!`;
             } else if (className.includes('Forró')) {
                 selectInquiry.value = 'forro-workshop';
                 messageInput.value = `Hi Priscila! I would love to join your upcoming Forró Dance Workshop at Sabathani Community Center. Please let me know the details!`;

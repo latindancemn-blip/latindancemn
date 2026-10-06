@@ -1822,7 +1822,7 @@ select.form-input option {
 }
 .form-checkbox-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 12px;
 }
 .form-radio-grid {
@@ -1831,8 +1831,15 @@ select.form-input option {
     gap: 12px;
 }
 @media (max-width: 650px) {
-    .form-checkbox-grid,
+    .form-checkbox-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
     .form-radio-grid {
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 420px) {
+    .form-checkbox-grid {
         grid-template-columns: 1fr;
     }
 }
