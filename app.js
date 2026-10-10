@@ -98,10 +98,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 messageInput.value = `Hi Priscila! I'm interested in booking the 4-Class Package for Private Dance Lessons ($240, 4 consecutive weekly 45-minute lessons at the St. Louis Park studio). My preferred dance style is [Forró / Samba Solo / Samba de Gafieira / Bachata / Salsa] and I'd love to schedule my first lesson!`;
             } else if (className.includes('Basic #2') || className.includes('Basics #2')) {
                 selectInquiry.value = 'forro-workshop';
-                messageInput.value = `Hi Priscila! I would love to sign up for the 5-Week Forró Dance Workshop Basic #2 ($75 if paid by September 30, $85 afterwards, Thursdays in October 7:00 PM – 8:00 PM at Sabathani Community Center). Please let me know how to complete my registration!`;
+                messageInput.value = `Hi Priscila! I would love to sign up for the 5-Week Forró Workshop - Basic #2 ($75 if paid by September 30, $85 afterwards, Thursdays in October 7:00 PM – 8:00 PM at Sabathani Community Center). Please let me know how to complete my registration!`;
             } else if (className.includes('Basic #1') || className.includes('Basics #1') || className.includes('5-Week') || className.includes('4-Week')) {
                 selectInquiry.value = 'forro-workshop';
-                messageInput.value = `Hi Priscila! I’d love to add my name to the waitlist for the 4-Week Forró Dance Basics #1 at Sabathani Community Center. I’m happy to pay the full tuition of $65.
+                messageInput.value = `Hi Priscila! I’d love to add my name to the waitlist for the 4-Week Forró Workshop - Basic #1 at Sabathani Community Center. I’m happy to pay the full tuition of $60.
 
 Please let me know once the dates and registration are confirmed. Thank you!`;
             } else if (className.includes('Forró')) {
